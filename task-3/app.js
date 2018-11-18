@@ -11,7 +11,7 @@ const scoreList={
         {score: 25, name: 'Olga', age: 22},
         {score: 8, name: 'Bella', age: 23}
     ],
-    toString: function (data) {
+    toString: function () {
         let obj = this.data;
         let result = [];
         for (prop in obj) {
