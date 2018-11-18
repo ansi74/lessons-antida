@@ -1,11 +1,12 @@
+const readline = require('readline');
+var fs = require("fs");
 function removeSpace (){
-	const readline = require('readline');
-	const rl = readline.createInterface({
+const rl = readline.createInterface({
 		input: process.stdin,
 		output: process.stdout
 	});
 	rl.question('Введите название файла...(без расширения):', (answer) => {
-		var fs = require("fs");
+		
 		var fileName = answer;
 		var TIMER;
 		console.time(TIMER);
