@@ -28,9 +28,7 @@ function getArea(val){
 function getPerimetr(val){
     return `периметр - ${(val.width + val.height) * 2} ${val.units} `;
 }
-var obj={
-    units:'см.'
-};
+ 
 
 let rectangle10x20=new Rectangle(10,20,'cм.');
 console.log(rectangle10x20.info());
