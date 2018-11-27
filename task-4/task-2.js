@@ -22,11 +22,11 @@ const Rectangle = function(width,height,units){
     };
     
 };
-function getArea(width,height){
-    return `площадь - ${width * height} ${this.units} `;
+function getArea(val){
+    return `площадь - ${val.width * val.height} ${val.units} `;
 };
-function getPerimetr(width,height){
-    return `периметр - ${(width + height) * 2} ${this.units} `;
+function getPerimetr(val){
+    return `периметр - ${(val.width + val.height) * 2} ${val.units} `;
 }
 var obj={
     units:'см.'
@@ -34,5 +34,5 @@ var obj={
 
 let rectangle10x20=new Rectangle(10,20,'cм.');
 console.log(rectangle10x20.info());
-console.log(getArea.call(obj, 10,20));
-console.log(getPerimetr.apply(obj, [10,20]));
+console.log(getArea(rectangle10x20));
+console.log(getPerimetr(rectangle10x20));
