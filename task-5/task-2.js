@@ -12,13 +12,11 @@ var counter = function iife() {
     return currentCount++;
   };
 }();
-function Date() {
-    this.getDay = function () {
-        //var currentDate = new Date();
-        var currentDay = 5;
-        return   (counter() % 2 === 0) ? currentDay : 11;
-    };
+function newConductDate() {
+    var currentDay = 5;
+    return   (counter() % 2 === 0) ? currentDay : 11;
 }
+Date.prototype.getDay = newConductDate;
 
 //Не изменяя код выше сделать так, чтобы иногда он мог возвращать Strange day.
 //Пример работы:

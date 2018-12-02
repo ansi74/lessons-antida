@@ -7,35 +7,22 @@
 //секретное (целое!) число от 1 до n, а tries - это количество попыток, которые
 //есть у игрока, чтобы отгадать число.
 (function () {
-   
-    let m = 1;
-     //вводим  данные для вычисления  кол-во попыток
-    let tries = Number(prompt('Введите число попыток, за которое вы отгадаете правильный ответ?', 3));
-     //вводим  данные для вычисления секретного числа
-    let n = Number(prompt(`Введите число от 1... N, из которого будет выбранно секретное число?`, 10));
-     //функция для поиска случайного числа из диапазона от 1 до n
-    let calcSecret = (m, n) => {
-        return Math.floor(Math.random() * (n - m + 1)) + m;
+    function findSecret(n, tries) {
+        let calcSecret = (n) => {
+            return Math.floor(Math.random() * (n - 1 + 1)) + 1;
+        };
+        let secret = calcSecret(n);
+        let currentCount = n;
+        return function (answer) {
+            let message = (secret < answer) ? `Ваш вариант меньше, осталось попыток - ${currentCount - 1}` :
+                    (secret > answer) ? `Ваш вариант больше, осталось попыток - ${currentCount - 1}` :
+                    (secret === answer) ? 'Вы угадали !!! поздравляем' : '';
+            currentCount--;
+            return console.log(message);
+        };
     };
-    let secret = calcSecret(m, n);
-     //функция проерки угадали ли вы секретное число
-    function findSecret(tries, secret) {
-        for (let i = tries; i >= m; i--) {
-            let status;  //статус проверки объявили
-            (function () {
-                console.log(i);
-                let answer = Number(prompt(`Ваш вариант...`));  //пользователь вводит число
-                 //проверяем число с введенным и присваем выводимое значение и кол-во попыток
-                let message = (secret < answer) ? `Ваш вариант меньше, осталось попыток - ${i - 1}` :
-                        (secret > answer) ? `Ваш вариант больше, осталось попыток - ${i - 1}` :
-                        (secret === answer) ? 'Вы угадали !!! поздравляем' : '';
-                 // если число угадали то присваиваем тру для того, что бы потом завершить выполнение
-                status = (secret === answer) ? true : false;  //
-                alert(message);
-            })(i);
-             //если число угадали завершаем
-            if (status) break;
-        }
-    }
-    findSecret(tries, secret);
+    var game1 = new findSecret(10, 3);
+    var game2 = new findSecret(5, 3);
+    game1(5);
+    game2(5);
 }());
