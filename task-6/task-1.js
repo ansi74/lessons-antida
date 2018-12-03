@@ -8,23 +8,7 @@
 //Пользователи не должны повторяться.
 //Пример работы функции:
 //console.table(await getUserAvatars(10));
-//    let resultTable = [], tmpList = {}, idx = 1, counter = 0;
-//    tmpList = {
-//        avatar: '',
-//        id: '',
-//        username: ''
-//    };
-//    let userFromGithub = 
-
-//    while (idx != userFromGithub.length) {
-//        tmpList.avatar = userFromGithub.avatar_url;
-//        tmpList.id = userFromGithub.id;
-//        tmpList.username = userFromGithub.login;
-//        resultTable.push(tmpList);
-//        tmpList = {};
-//        idx++;
-//    }
-//https://api.github.com/users?page=2&per_page=100
+ 
 function resposeToGithub(x) {
     return  fetch(`https://api.github.com/users?since=${x}`);
 }
