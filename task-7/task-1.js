@@ -36,15 +36,21 @@ person.fullName = 'Сергей';
 console.log(person.fullName);
 //-----------------------------
 class Man extends Human {
-    constructor(age) {
+    constructor(name,lastName,age) {
+        super(name, lastName);
         this.age = age;
     }
-    this.isAdult = function() {
-        super.isAdult();
-        console.log(this.age);
-        return (this.age > 18) ? false : true;
+    isAdult() {
+        console.log(this.age > 18) ? false : true;
     }
+    
 }
-;
-let person1 = new Human('Петр', 'Иванов', 19);
-Man.isAdult();
+
+let person1 = new Man('Vasya','Petrov',19);
+person1.isAdult();
+new Man('Mihail','Ivanov',17);
+new Man('Kirill','Smirnov',17);
+new Man('Yana','Semenov',17);
+new Man('Victor','Vasilyev',17);
+new Man('Olga','Petrov',17);
+new Man('Petr','Gazizov',17);
