@@ -8,50 +8,43 @@
 //Пользователи не должны повторяться.
 //Пример работы функции:
 //console.table(await getUserAvatars(10));
-//    let resultTable = [], tmpList = {}, idx = 1, counter = 0;
-//    tmpList = {
-//        avatar: '',
-//        id: '',
-//        username: ''
-//    };
-//    let userFromGithub = 
+ 
+function resposeToGithub(x) {
+    return  fetch(`https://api.github.com/users?since=${x}`);
+}
+function moveToArray(arr) {
+    let resultArray = [];
+    arr.reduce(function (result, val, index) {
+        result = {
+            avatar: val.avatar_url,
+            id: val.id,
+            username: val.login
+        };
+        resultArray.push(result);
+    }, {});
+    return resultArray;
+};
 
-//    while (idx != userFromGithub.length) {
-//        tmpList.avatar = userFromGithub.avatar_url;
-//        tmpList.id = userFromGithub.id;
-//        tmpList.username = userFromGithub.login;
-//        resultTable.push(tmpList);
-//        tmpList = {};
-//        idx++;
-//    }
+
 async function getUserAvatars(n) {
     try {
-        let resultTable = await fetch('https://api.github.com/users?since=135').then(
-                function (response) {
-                    if (response.status !== 200) {
-                        console.log('Looks like there was a problem. Status Code: ' +
-                                response.status);
-                        return;
-                    }
-                    response.json().then(function (data) {
-                        let resultArray = [];
-                        data.reduce(function(result, val, index){
-                            result = {
-                                avatar: val.avatar_url,
-                                id: val.id,
-                                username: val.login
-                            };
-                            resultArray.push(result);
-                        },{});
-                        return console.table(resultArray);
-                    });
-                }
-        ).catch(function (err) {
-            console.log('Fetch Error :-S', err);
-        });
-        return  console.log(resultTable);
+        let json = await resposeToGithub(1).then(response => response.json());
+        let resultArray = await moveToArray(json);
+        if (n < json.length) {
+            resultArray = resultArray.slice(0, n);
+        } else {
+           let count = Math.ceil(n/json.length);
+           for (let i=1; i<count; i++){
+              let lastElem = resultArray [resultArray.length - 1];
+              let json = await resposeToGithub(lastElem.id).then(response => response.json());
+              let tmpArray = await moveToArray(json);
+              Array.prototype.push.apply(resultArray,tmpArray);
+           }
+           resultArray = resultArray.slice(0, n);
+        }
+        return console.table(resultArray);
     } catch (err) {
         console.log(err);
     }
 };
-console.table(getUserAvatars(10));
+console.table(getUserAvatars(52));
