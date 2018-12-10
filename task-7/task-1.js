@@ -25,7 +25,7 @@ class Human {
     set fullName(newName) {
         this.name = newName;
     }
-    
+
 };
 
 let person = new Human('Петр', 'Иванов');
@@ -36,21 +36,33 @@ person.fullName = 'Сергей';
 console.log(person.fullName);
 //-----------------------------
 class Man extends Human {
-    constructor(name,lastName,age) {
+    constructor(name, lastName, age) {
         super(name, lastName);
         this.age = age;
     }
     isAdult() {
         console.log(this.age > 18) ? false : true;
     }
-    
+
 }
 
-let person1 = new Man('Vasya','Petrov',19);
+let person1 = new Man('Vasya', 'Petrov', 19);
 person1.isAdult();
-new Man('Mihail','Ivanov',17);
-new Man('Kirill','Smirnov',17);
-new Man('Yana','Semenov',17);
-new Man('Victor','Vasilyev',17);
-new Man('Olga','Petrov',17);
-new Man('Petr','Gazizov',17);
+let men = [
+    new Man('Mihail', 'Ivanov', 17),
+    new Man('Kirill', 'Smirnov', 21),
+    new Man('Yana', 'Semenov', 14),
+    new Man('Victor', 'Vasilyev', 16),
+    new Man('Olga', 'Petrova', 22),
+    new Man('Petr', 'Gazizov', 33)
+];
+let adultMen = men.filter((item) => item.age > 18);
+console.table(adultMen);
+let adultMenNames = [];
+men.forEach((item) => {
+    if (item.age > 18)
+        adultMenNames.push(item.name);
+});
+console.table(adultMenNames);
+let adultMenOdd = men.filter((item, index) => index % 2 === 0);
+console.table(adultMenOdd);
